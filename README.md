@@ -1,6 +1,29 @@
 # Latent Inversion for Consistent Identity Preservation in Character Animation
 
-The overall network structure code is located in `config/tm_inv/*/net_combine.py`, and the feature injection module can be found in `register.py` in the same directory.
+The overall network structure code is located in `config/tm_inv/tem_disco_temp_attn/net_combine.py`, and the feature injection module can be found in `register.py` in the same directory.
+
+## Installation
+### Environment Setup
+This repository has been tested on the following platform:
+Python 3.11.9, PyTorch 2.5.1 with CUDA 12.4 and cuDNN 9.1, Ubuntu 22.04.4
+
+To clone the repo, run:
+```
+git clone https://github.com/SodaLee/InvLatents.git
+```
+Next, you have to make sure that you have all dependencies in place.
+The simplest way to do so, is to use [anaconda](https://www.anaconda.com/). 
+```
+conda env create -f environment.yml -n py311
+conda activate py311
+
+## for acceleration
+pip install --user deepspeed
+pip install -v -U git+ssh://git@github.com/facebookresearch/xformers.git@main#egg=xformers
+
+## you may need to downgrade prototbuf to 3.20.x
+pip install protobuf==3.20.0
+```
 
 ## TikTok dataset
 We use the [TikTok dataset](https://www.yasamin.page/hdnet_tiktok) for the fine-tuning. 
@@ -29,35 +52,13 @@ You can refer to densepose_data/gen_densepose_tsv.py
 
 This procedure used densepose_rcnn_R_101_FPN_DL_WC1M_s1x model, please follow [DensePose](https://github.com/facebookresearch/detectron2/tree/main/projects/DensePose) for reference.
 
-We also provide our processed densepose test data. [Processed Test](UPLOAD)
-
-## Installation
-### Environment Setup
-This repository has been tested on the following platform:
-Python 3.11.9, PyTorch 2.5.1 with CUDA 12.4 and cuDNN 9.1, Ubuntu 22.04.4
-
-To clone the repo, run:
-```
-git clone https://github.com/SodaLee/InvLatents.git
-```
-Next, you have to make sure that you have all dependencies in place.
-The simplest way to do so, is to use [anaconda](https://www.anaconda.com/). 
-```
-conda env create -f environment.yml -n py311
-conda activate py311
-
-## for acceleration
-pip install --user deepspeed
-pip install -v -U git+ssh://git@github.com/facebookresearch/xformers.git@main#egg=xformers
-
-## you may need to downgrade prototbuf to 3.20.x
-pip install protobuf==3.20.0
-```
+We also provide our processed densepose test data. [Processed Test Data](https://drive.google.com/file/d/1L-2Ii3cGnO-4bwBIJ_ggCmRrMmVlLhwd/view?usp=sharing)
+Please overwrite the contents in the corresponding folder within the Tiktok dataset directory.
 
 ## Pre-trained Models
 **Pre-trained Model Checkpoint(1.2M): [OneDrive](https://entuedu-my.sharepoint.com/:f:/g/personal/tan317_e_ntu_edu_sg/EoH8KHplKPhGrIdKN6sPx_ABpurpPjNAvU3KdFgaPwNfJQ)**
 
-**Video-finetuned Checkpoint: [Google](https://drive.google.com/file/d/1_b4naNB1QozGL-tKyHwSSYzTw8RIh5z3/view?usp=sharing)**
+**Video-finetuned Checkpoint: [Google](https://drive.google.com/file/d/1yHLWAf36Fp9mPsczHWvLgOETszlZMzEx/view?usp=sharing)**
 
 ## Training
 1. Download the `sd-image-variations-diffusers` from official [diffusers repo](https://huggingface.co/lambdalabs/sd-image-variations-diffusers) and put it according to the config file `pretrained_model_path`. Or you can also choose to modify the `pretrained_model_path`.
