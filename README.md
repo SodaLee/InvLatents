@@ -1,5 +1,7 @@
 # Latent Inversion for Consistent Identity Preservation in Character Animation
 
+The overall network structure code is located in `config/tm_inv/*/net_combine.py`, and the feature injection module can be found in `register.py` in the same directory.
+
 ## TikTok dataset
 We use the [TikTok dataset](https://www.yasamin.page/hdnet_tiktok) for the fine-tuning. 
 
@@ -27,6 +29,8 @@ You can refer to densepose_data/gen_densepose_tsv.py
 
 This procedure used densepose_rcnn_R_101_FPN_DL_WC1M_s1x model, please follow [DensePose](https://github.com/facebookresearch/detectron2/tree/main/projects/DensePose) for reference.
 
+We also provide our processed densepose test data. [Processed Test](UPLOAD)
+
 ## Installation
 ### Environment Setup
 This repository has been tested on the following platform:
@@ -51,10 +55,14 @@ pip install protobuf==3.20.0
 ```
 
 ## Pre-trained Models
-**Pre-trained Model Checkpoint: [OneDrive](https://entuedu-my.sharepoint.com/:f:/g/personal/tan317_e_ntu_edu_sg/EoH8KHplKPhGrIdKN6sPx_ABpurpPjNAvU3KdFgaPwNfJQ)**
+**Pre-trained Model Checkpoint(1.2M): [OneDrive](https://entuedu-my.sharepoint.com/:f:/g/personal/tan317_e_ntu_edu_sg/EoH8KHplKPhGrIdKN6sPx_ABpurpPjNAvU3KdFgaPwNfJQ)**
 
+**Video-finetuned Checkpoint: [Google](https://drive.google.com/file/d/1_b4naNB1QozGL-tKyHwSSYzTw8RIh5z3/view?usp=sharing)**
 
 ## Training
+1. Download the `sd-image-variations-diffusers` from official [diffusers repo](https://huggingface.co/lambdalabs/sd-image-variations-diffusers) and put it according to the config file `pretrained_model_path`. Or you can also choose to modify the `pretrained_model_path`.
+
+2. You may need to download the [pre-trained vision model](https://drive.google.com/file/d/1J8w3fGj6H6kmcW9G8Ff6tRQofblaG5Vn/view?usp=sharing) and revise the path in `gen_eval.sh` for achieving fvd metric.
 ```
 ## motion control training
 ./scripts/stage2.sh
